@@ -1,4 +1,5 @@
 ﻿'use strict'
+require('dotenv').config()
 var debug = require('debug')
 var express = require('express')
 var path = require('path')
