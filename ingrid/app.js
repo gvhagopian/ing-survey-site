@@ -2,16 +2,39 @@
 require('dotenv').config()
 var debug = require('debug')
 var express = require('express')
+var session = require('express-session')
 var path = require('path')
 var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 
+var model = require('./server/models')
+var db = model.sequelize
+
+var SequelizeStore = require('connect-session-sequelize')(session.Store)
+
+var sessionStore = new SequelizeStore({
+    db: db,
+    checkExpirationInterval: 15 * 60 * 1000,
+    expiration: 7 * 24 * 60 * 60 * 1000
+})
+
+
+
 var routes = require('./routes/index').default
 var users = require('./routes/users').default
 
 var app = express()
+
+app.use(session({
+    secret: process.env.SESSION_COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore
+}))
+
+sessionStore.sync()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

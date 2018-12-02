@@ -2,27 +2,28 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('surveyRespondents', {
+        return queryInterface.createTable('surveyResponses', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            userAgent: {
+            form: {
                 type: Sequelize.STRING,
-                allowNull: false,
-                unique: 'uniqueRespondent'
+                allowNull: false
             },
-            ipAddress: {
+            comment: {
                 type: Sequelize.STRING,
-                allowNull: false,
-                unique: 'uniqueRespondent'
+                allowNull: false
             },
-            cookie: {
+            identifier: {
                 type: Sequelize.STRING,
-                allowNull: false,
-                unique: 'uniqueRespondent'
+                allowNull: false
+            },
+            submitButton: {
+                type: Sequelize.STRING,
+                allowNull: false
             },
             createdAt: {
                 allowNull: false,
@@ -31,10 +32,19 @@ module.exports = {
             updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE
+            },
+            respondentId: {
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'surveyRespondents',
+                    key: 'id',
+                    as: 'respondentId'
+                }
             }
         })
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('surveyRespondents')
+        return queryInterface.dropTable('surveyResponses');
     }
 }

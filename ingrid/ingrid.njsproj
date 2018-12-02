@@ -36,16 +36,22 @@
     <Compile Include="app.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
+    <Compile Include="server\conrollers\surveyResponses.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\migrations\20181031055060-create-survey-response.js" />
+    <Compile Include="server\migrations\20181031055053-create-survey-respondent.js" />
     <Compile Include="server\models\index.js" />
-    <Compile Include="server\models\surveyrespondent.js" />
-    <Compile Include="server\models\SurveyResponse.js" />
+    <Compile Include="server\models\surveyRespondent.js" />
+    <Compile Include="server\models\surveyResponse.js" />
     <Content Include=".sequelizerc" />
-    <Content Include="development.env">
+    <Content Include=".env">
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="server\config\config.json" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
@@ -65,6 +71,8 @@
     <Folder Include="routes\" />
     <Folder Include="server\migrations\" />
     <Folder Include="server\models\" />
+    <Folder Include="server\config\" />
+    <Folder Include="server\conrollers\" />
     <Folder Include="server\seeders\" />
     <Folder Include="views\" />
   </ItemGroup>

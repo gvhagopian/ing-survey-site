@@ -1,26 +1,27 @@
 ﻿extends layout
 block content
-    h1
-        | Page 1
-    p
-        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a leo lorem. Curabitur commodo ante sit amet dolor ornare posuere. 
-        | Pellentesque sollicitudin, augue id ultricies iaculis, est lacus commodo quam, vel ultricies nulla nisl sit amet turpis. 
-        | Proin in ex varius, pulvinar metus tincidunt, dictum ipsum. Nam volutpat fringilla ultricies. Mauris pharetra nunc at egestas commodo. 
-        | Nulla efficitur purus et leo tempus lacinia. Vestibulum pellentesque vulputate nulla, id volutpat turpis porttitor sit amet.
-    p
-        | Sed non fermentum leo. Proin egestas vitae lectus fringilla ullamcorper.
-        | Praesent vitae molestie ligula. Phasellus nunc nunc, aliquam ut ultrices eu, ornare pulvinar odio.
-        | Nulla libero ante, pulvinar non eros a, luctus volutpat ex. Etiam elementum, justo sit amet bibendum venenatis, eros justo congue nisl, eget ullamcorper elit justo eget lacus. 
-        | Vestibulum quis enim feugiat, imperdiet nisi non, auctor tortor. Maecenas porta tempus felis quis maximus.
-        | Vestibulum fringilla ex ac porta tristique. Cras tempor nisl ac diam faucibus, eu pharetra velit ornare. Donec mattis neque et justo blandit iaculis.
-    form(name="Page1", method="post")
-        div.input
-            span.label Comment Box
-            textarea(name="comment", cols="40", rows="5")
-        div.actions
-            input(type="submit", value="action1")
-        div.actions
-            input(type="submit", value="action2")
-        div.input
-            span.label Enter your identifier here
-            input(type="text", name="identifier")
+    div.container
+        h1
+            | Page 1
+        p
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a leo lorem. Curabitur commodo ante sit amet dolor ornare posuere. 
+            | Pellentesque sollicitudin, augue id ultricies iaculis, est lacus commodo quam, vel ultricies nulla nisl sit amet turpis. 
+            | Proin in ex varius, pulvinar metus tincidunt, dictum ipsum. Nam volutpat fringilla ultricies. Mauris pharetra nunc at egestas commodo. 
+            | Nulla efficitur purus et leo tempus lacinia. Vestibulum pellentesque vulputate nulla, id volutpat turpis porttitor sit amet.
+        p
+            | Sed non fermentum leo. Proin egestas vitae lectus fringilla ullamcorper.
+            | Praesent vitae molestie ligula. Phasellus nunc nunc, aliquam ut ultrices eu, ornare pulvinar odio.
+            | Nulla libero ante, pulvinar non eros a, luctus volutpat ex. Etiam elementum, justo sit amet bibendum venenatis, eros justo congue nisl, eget ullamcorper elit justo eget lacus. 
+            | Vestibulum quis enim feugiat, imperdiet nisi non, auctor tortor. Maecenas porta tempus felis quis maximus.
+            | Vestibulum fringilla ex ac porta tristique. Cras tempor nisl ac diam faucibus, eu pharetra velit ornare. Donec mattis neque et justo blandit iaculis.
+        form(name="Page1", method="post")
+            div.input
+                span.label Comment Box
+                textarea(name="comment", cols="40", rows="5")
+            div.actions
+                input(type="submit", name="button" value="action1")
+            div.actions
+                input(type="submit", name="button" value="action2")
+            div.input
+                span.label Enter your identifier here
+                input(type="text", name="identifier")

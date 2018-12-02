@@ -18,10 +18,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    }, {})
+    })
+
     surveyResponse.associate = function (models) {
-        surveyResponse.belongsTo(models.SurveyRespondent, {
-            foreignKey: 'responseId',
+        surveyResponse.belongsTo(models.surveyRespondent, {
+            foreignKey: 'respondentId',
             onDelete: 'CASCADE'
         })
     }
