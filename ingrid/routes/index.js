@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     res.render('index', { title: 'Express' })
 })
 
-router.get('/Page1', (req, res) => {
+router.get('/1', (req, res) => {
     model.surveyRespondent
         .findOrCreate({
             where: {
@@ -18,7 +18,7 @@ router.get('/Page1', (req, res) => {
         })
         .spread((surveyRespondent, created) => {
             req.session.respID = surveyRespondent.id
-            res.render('Page1', { title: 'Page 1' })
+            res.render('survey-form', { buttons: ["Submit Publicly", "Submit Privately"] })
         })
         .catch(error => {
             res.status(400).send(error)
@@ -26,7 +26,7 @@ router.get('/Page1', (req, res) => {
 })
 
 
-router.post('/Page1', (req, res) => {
+router.post('/1', (req, res) => {
     model.surveyResponse
         .create({
             respondentId: req.session.respID,
@@ -36,13 +36,13 @@ router.post('/Page1', (req, res) => {
             submitButton: req.body.button
         })
         .then(surveyResponse => {
-            res.render('Page1', { answer: req.body.srvResp })
+            res.render('survey-form', { buttons: ["Submit Publicly", "Submit Privately"], comment: req.body.comment, identifier: surveyResponse.identifier })
         })
         .catch(error => res.status(400).send(error))
 })
 
 
-router.get('/Page2', (req, res) => {
+router.get('/2', (req, res) => {
     model.surveyRespondent
         .findOrCreate({
             where: {
@@ -53,7 +53,7 @@ router.get('/Page2', (req, res) => {
         })
         .spread((surveyRespondent, created) => {
             req.session.respID = surveyRespondent.id
-            res.render('Page2', { title: 'Page 2' })
+            res.render('survey-form', { buttons: ["Submit"] })
         })
         .catch(error => {
             res.status(400).send(error)
@@ -61,7 +61,7 @@ router.get('/Page2', (req, res) => {
 })
 
 
-router.post('/Page2', (req, res) => {
+router.post('/2', (req, res) => {
     model.surveyResponse
         .create({
             respondentId: req.session.respID,
@@ -71,7 +71,7 @@ router.post('/Page2', (req, res) => {
             submitButton: req.body.button
         })
         .then(surveyResponse => {
-            res.render('Page2', { title: 'Page 2' })
+            res.render('survey-form', { buttons: ["Submit"], comment: req.body.comment, identifier: surveyResponse.identifier })
         })
         .catch(error => res.status(400).send(error))
 })

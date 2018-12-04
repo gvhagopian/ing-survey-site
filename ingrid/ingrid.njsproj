@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="server\migrations\20181031055060-create-survey-response.js" />
     <Compile Include="server\migrations\20181031055053-create-survey-respondent.js" />
+    <Compile Include="server\migrations\20181204114940-surveyResponse.js" />
     <Compile Include="server\models\index.js" />
     <Compile Include="server\models\surveyRespondent.js" />
     <Compile Include="server\models\surveyResponse.js" />
@@ -49,25 +50,23 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
+    <Content Include="public\stylesheets\bootstrap.min.css" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="server\config\config.json" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\Page1.pug">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="views\Page2.pug">
+    <Content Include="views\survey-form.pug">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="server\" />
     <Folder Include="public\" />
-    <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
-    <Folder Include="public\stylesheets\" />
+    <Folder Include="public\img\" />
+    <Folder Include="public\js\" />
+    <Folder Include="public\style\" />
     <Folder Include="routes\" />
     <Folder Include="server\migrations\" />
     <Folder Include="server\models\" />
