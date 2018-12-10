@@ -1,41 +1,101 @@
 ﻿extends layout
 block content
-    div.container.pt-5
-        div.text-center.mx-auto
-            h3
-                | Page 1
+    main.container(role="main")
+        div.text-center
+            h3.py-5= title
             h1
                 | Just learnt that my cancer tumor didn’t regrow. So thrilled.
-        form(name="1", method="post")
-
+        form.needs-validation(name="1", method="post", novalidate)
+        
             if comment
-                div.card.text-white.bg-secondary.mb-3.text-center
-                    h1= comment.text
 
-            div.form-label-group
-                textarea.form-control(id="inputPassword", name="comment", placeholder="Comment", cols="40", rows="5")
-                label(for="inputPassword")
-                    Password
+                div.card.text-white.bg-secondary.m-5
+                    if identifier
+                        div.card-header
+                            h3= identifier
+                    div.row.no-gutters
+                        div.col
+                            div.text-center.p-3
+                                h1= comment.text
+                        if comment.button == 'Submit Publicly' || comment.button == 'Submit Privately'
+                            div.col-auto.p-3
+                                div.img-fluid
+                                    img.comment-icon.card-img(src=`/img/${comment.button == 'Submit Publicly' ? 'group' : 'users'}.svg` )
+            
+            div.row
+                div.col-md-3
+                div.col-md-6
+                    div.form-label-group.p-3
+                        textarea.form-control(id="inputComment", name="comment", placeholder="Comment", cols="40", rows="5")
+                div.col-md-3
 
             div.text-center
-                div.btn-group.btn-blcok
+                div.btn-group.y-5
                     each val in buttons
                         input.btn.btn-primary.btn-lg(type="submit", name="button" value=`${val}` )
 
 
             if identifier
-                div.mt-5.text-center
-                    h1= identifier
+                //div.mt-5.text-center
+                //    h1= identifier
                 input(id="inputIdentifier", type="hidden", name="identifier", value=`${identifier}` )
             else
-                div.mt-5
-                div.form-label-group.row
+                div.pt-5
+                div.pt-5
+                div.row
                     div.col-3
-                    div.col-6
+                    div.col-6.pb-3
                         span.label
                             | Create an anonymous identifier with at least 8 characters including both letters and numbers (e.g., squirrel072)
                             | and then come back to the questionnaire, enter your identifier on the questionnaire, so that we know you actually visited the site.
-                        input.form-control.form-control-lg(id="inputIdentifier", type="text", name="identifier", placeholder="Anonymous Identifier")
-                        label(for="inputIdentifier")
-                            Password
                     div.col-3
+                div.row
+                    div.col-4
+                    div.col-4
+                        input.form-control.form-control-lg(id="inputIdentifier", type="text", name="identifier", placeholder="Anonymous Identifier", 
+                            pattern="[a-zA-Z]+[0-9]+" minlength="8", maxlength="255", required)
+                        div.invalid-feedback
+                            | Identifier:
+                            br
+                            ul
+                                li
+                                    | Must be at least 8 characters
+                                li
+                                    | Must consist only of letters followed by numbers
+                    div.col-4
+                    
+    if comment && (comment.button == 'Submit Publicly' || comment.button == 'Submit Privately')
+        footer.footer
+            div.container
+                span.text-muted
+                    | Icon made by 
+                    if comment.button == "Submit Publicly"
+                        a(href="https://www.flaticon.com/authors/ocha", title="OCHA")
+                            | OCHA 
+                    else
+                        a(href="https://www.freepik.com/", title="Freepik")
+                            | Freepik 
+                    | from 
+                    a(href="https://www.flaticon.com/", title="Flaticon")
+                        | www.flaticon.com 
+                    | licensed by 
+                    a(href="http://creativecommons.org/licenses/by/3.0/", title="Creative Commons BY 3.0", target="_blank")
+                        | CC 3.0 BY
+
+    script.
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
