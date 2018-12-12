@@ -14,7 +14,7 @@ router.get('/1', (req, res) => {
         .findOrCreate({
             where: {
                 userAgent: req.headers['user-agent'],
-                ipAddress: req.headers['X-Forwarded-For'] || req.connection.remoteAddress,
+                ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
                 cookie: req.sessionID
             }
         })
