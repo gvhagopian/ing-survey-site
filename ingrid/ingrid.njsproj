@@ -34,6 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="public\js\srv.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="server\conrollers\surveyResponses.js">
