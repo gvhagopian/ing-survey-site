@@ -53,8 +53,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
-    <Content Include="public\img\group.svg" />
-    <Content Include="public\img\users.svg" />
     <Content Include="public\style\bootstrap.min.css" />
     <Content Include="public\style\main.css" />
     <Content Include="README.md" />

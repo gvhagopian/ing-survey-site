@@ -45,6 +45,15 @@
                 form.classList.add('was-validated');
             }, false);
         });
+        if (getComputedStyle(document.body).backgroundColor !== "rgb(255, 255, 255)") {
+            var obfs = document.getElementsByClassName('obfuscated');
+
+            Array.prototype.filter.call(obfs, function (obf) {
+                obf.textContent = obf.textContent.replace(/[^ ]/g, "-");
+            });
+
+            document.getElementById("img-path").style.fill = getComputedStyle(document.getElementById("query")).color;
+        }
     }, false);
 })();
 

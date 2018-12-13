@@ -1,7 +1,8 @@
 ﻿
 .obfuscated {
-    color: transparent;
-    text-shadow: rgba(255, 255, 255, 0.95) 0px 0px 10px;
+    color: rgba(0, 0, 0, 0);
+    text-shadow: rgba(255, 255, 255, 0.95) 0px 0px 15px;
+    text-shadow: rgba(255, 255, 255, 0.95) 0px 0px 15px 0.01em;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -11,15 +12,15 @@
 }
 
 #inputIdentifier::-webkit-input-placeholder {
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 #inputIdentifier::-moz-placeholder {
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 #inputIdentifier:-ms-input-placeholder {
-    font-size: 3em;
+    font-size: 0.8em;
 }
 
 #inputIdentifier::placeholder {
@@ -27,8 +28,9 @@
 }
 
 h2.obfuscated {
-    color: transparent;
+    color: rgba(0, 0, 0, 0);
     text-shadow: rgba(255, 255, 255, 0.95) 0px 0px 20px;
+    text-shadow: rgba(255, 255, 255, 0.95) 0px 0px 20px 0.01em;
 }
 
 html {
@@ -66,26 +68,36 @@ body {
 h1          { font-size: 3rem; }
 h2          { font-size: 1.8rem; }
 p           { font-size: 1.2rem; }
+#title      { padding-top: 3rem; }
+#title      { padding-bottom: 3rem; }
 
 @media screen and (max-width: 1024px) {
     h1      { font-size: 2rem; }
     h2      { font-size: 1.2rem; }
     p       { font-size: 1rem; }
+    #title  { padding-top: 2rem; }
+    #title  { padding-bottom: 2rem; }
 }
 @media screen and (max-width: 600px) {
     h1      { font-size: 1.6rem; }
     h2      { font-size: 1.4rem; }
     p       { font-size: 1.2rem; }
+    #title  { padding-top: 1rem; }
+    #title  { padding-bottom: 1rem; }
 }
 @media screen and (max-width: 400px) {
     h1      { font-size: 1.4rem; }
     h2      { font-size: 1rem; }
     p       { font-size: 1rem; }
+    #title  { padding-top: 1rem; }
+    #title  { padding-bottom: 1rem; }
 }
 @media screen and (max-width: 200px) {
     h1      { font-size: 0.8rem; }
     h2      { font-size: 0.5rem; }
     p       { font-size: 0.3rem; }
+    #title  { padding-top: 1rem; }
+    #title  { padding-bottom: 1rem; }
     .btn-responsive {
               font-size: 0.2rem;
     }
