@@ -63,9 +63,9 @@
                     scrollTo(errorElements[0].getBoundingClientRect().top, 500);
                     //scrollTo(document.getElementsByTagName('html'), errorElements[0].getBoundingClientRect().top, 2000);
                 }
-                document.getElementById("inputHistory").value = JSONC.pack(inputList);
-                console.log(document.getElementById("inputHistory").value);
-                window.unpacked = JSONC.unpack(document.getElementById("inputHistory").value);
+                if (JSONC && JSONC.pack) {
+                    document.getElementById("inputHistory").value = JSONC.pack(inputList);
+                }
                 form.classList.add('was-validated');
             }, false);
         });
