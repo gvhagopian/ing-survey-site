@@ -37,8 +37,12 @@ h2.obfuscated-black {
     user-select: none;
 }
 
+.container {
+    max-width: 600px;
+}
+
 .bg-nav-blue {
-    background-color: rgb(0, 78, 177);
+    background-color: rgb(39, 107, 174);
 }
 
 .bg-light-blue {
@@ -46,11 +50,11 @@ h2.obfuscated-black {
 }
 
 .bg-light-grey {
-    background-color: rgb(147, 157, 188);
+    background-color: rgb(242, 243, 245);
 }
 
-.bg-faint-grey {
-    background-color: rgb(214, 213, 223);
+body {
+    background-color: rgb(232, 235, 238);
 }
 
 #inputIdentifier::-webkit-input-placeholder {
@@ -145,5 +149,12 @@ p           { font-size: 1.2rem; }
     #title  { padding-bottom: 1rem; }
     .btn-responsive {
               font-size: 0.2rem;
+    }
+}
+
+
+@media screen and (max-width: 576px) {
+    .col-xs-0 {
+        display:none;
     }
 }

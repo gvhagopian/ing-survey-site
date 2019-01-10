@@ -3,90 +3,103 @@ block content
     nav.navbar.navbar-dark.bg-nav-blue.pb-5
     
     form.needs-validation(name="1", method="post", novalidate)
-        main.container.bg-faint-grey.py-4(role="main")   
-    
-            div.row.justify-content-center
-                div.col-xs-12.col-sm-12.col-md-10
-                    div.card.text-black.bg-light-blue.mb-3.p-4
-                        h1(id="query")= surveyquery
+        main.container-fluid.py-4.mt-4(role="main")   
+            div.row
+                div.col-xs-0.col-sm-0.col-md-2.col-xl-3
+                div.col-xs-12.col-sm-8.col-md-5.col-xl-4.bg-white
 
-            div.row.justify-content-center
-                div.col-md-8
-                    h2.mt-5
-                        | Comments
-                    div.card.text-black.bg-light-grey.mb-3
-                        div.card-header.p-0
-                            div.row.no-gutters
-                                div.col.p-2
-                                    h2.obfuscated-black
-                                        | Jane Smith
+                    div.row.justify-content-center
+                        div.col-xs-12.col-sm-12.col-md-12
+                            div.mb-3.p-2
+                                h2.obfuscated-black
+                                    | Joan Jonshon
+                                p(id="query")= surveyquery
+
+                    div.row.justify-content-center
+                        div.col-md-12
+                            h4.mt-3.text-center
+                                | Comments
+                            div.card.text-black.bg-light-grey.mb-3
+                                div.card-header.p-0.bg-white
+                                    div.row.no-gutters
+                                        div.col.p-2
+                                            h2.obfuscated-black
+                                                | Jane Smith
                                         
-                                if previmg
-                                    div.col-auto.pr-1.pt-1.pb-1
-                                        div.img-fluid
-                                            svg.comment-icon.card-img(viewBox=`${previmg.viewbox}`, style=`${previmg.style}` )
-                                                g
-                                                    path.img-path(style="fill:#010002;" d=`${previmg.data}` )
-                        div.row
-                            div.col
-                                div.text-center.p-3
-                                    p.obfuscated-black
-                                        | Pothe of the does a tres If Sander ther mebout waskes as about likes makin on tres?
-                                        | how out why ved Chrise cause saiday re the the buzzing-noist of tres of its so a lace fore.
+                                        if previmg
+                                            div.col-auto.pr-1.pt-1.pb-1
+                                                div.img-fluid
+                                                    svg.comment-icon.card-img(viewBox=`${previmg.viewbox}`, style=`${previmg.style}` )
+                                                        g
+                                                            path.img-path(style="fill:#010002;" d=`${previmg.data}` )
+                                div.row
+                                    div.col
+                                        div.p-3
+                                            p.obfuscated-black
+                                                | Pothe of the does a tres If Sander ther mebout waskes as about likes makin on tres?
+                                                | how out why ved Chrise cause saiday re the the buzzing-noist of tres of its so a lace fore.
 
-                    if comment
-                        div.card.text-black.bg-light-grey
-                            div.card-header.p-0
-                                div.row.no-gutters
-                                    div.col.p-2
-                                        h2
-                                            | You
-                                    if img
-                                        div.col-auto.pr-1.pt-1.pb-1
-                                            div.img-fluid
-                                                svg.comment-icon.card-img(viewBox=`${img.viewbox}`, style=`${img.style}`)
-                                                    g
-                                                        path(id="img-path", style="fill:#010002;" d=`${img.data}` )
-                            div.row
-                                div.col
-                                    div.text-center.p-3
-                                        p= comment.text
+                            if comment
+                                div.card.text-black.bg-light-grey
+                                    div.card-header.p-0.bg-white
+                                        div.row.no-gutters
+                                            div.col.p-2
+                                                h2
+                                                    | You
+                                            if img
+                                                div.col-auto.pr-1.pt-1.pb-1
+                                                    div.img-fluid
+                                                        svg.comment-icon.card-img(viewBox=`${img.viewbox}`, style=`${img.style}`)
+                                                            g
+                                                                path(id="img-path", style="fill:#010002;" d=`${img.data}` )
+                                    div.row
+                                        div.col
+                                            div.p-3
+                                                p= comment.text
             
-            div.row.justify-content-center
-                div.col-md-6
-                    div.form-label-group.p-3
-                        textarea.form-control(id="inputComment", name="comment", placeholder="Comment", cols="40", rows="5")
+                    div.row.justify-content-center
+                        div.col-md-12
+                            div.form-label-group.py-3
+                                textarea.form-control(id="inputComment", name="comment", placeholder="Comment", cols="40", rows="5")
 
-            div.row.justify-content-center
-                div.col-lg-4.col-md-6.col-sm-8.col-xs-10.text-center
-                    each btn in buttons
-                        div.row.my-2.justify-content-center
-                            if btn.img
-                                div.col-9.pr-0
-                                    input.form-control.btn(id=`${btn.id}`, type="submit", name="button" value=`${btn.name}` )
-                                div.col-3.pl-2
-                                    div.img-fluid
-                                        svg.submit-icon(viewBox=`${btn.img.viewbox}`, style=`${btn.img.style}` )
-                                            g
-                                                path.img-path(style="fill:#010002;" d=`${btn.img.data}` )
-                            else
-                                div.col-md-6
-                                    input.form-control.btn-primary(type="submit", name="button" value=`${btn.name}` )
-
+                    div.row.justify-content-center.pb-3
+                        div.col-lg-8.col-md-8.col-sm-10.col-xs-12.text-center
+                            each btn in buttons
+                                div.row.my-2.justify-content-center
+                                    if btn.img
+                                        div.col-9.pr-0
+                                            input.form-control.btn(id=`${btn.id}`, type="submit", name="button" value=`${btn.name}` )
+                                        div.col-3.pl-2
+                                            div.img-fluid
+                                                svg.submit-icon(viewBox=`${btn.img.viewbox}`, style=`${btn.img.style}` )
+                                                    g
+                                                        path.img-path(style="fill:#010002;" d=`${btn.img.data}` )
+                                    else
+                                        div.col-md-6
+                                            input.form-control.btn-primary(type="submit", name="button" value=`${btn.name}` )
+                div.col-xs-0.col-sm-4.col-md-4.col-xl-3(style="max-width:400px;")
+                    div.mb-3(style="height:25%;")
+                        div.bg-white(style="height:100%;")
+                    div.mb-3(style="height:60%;")
+                        div.bg-white(style="height:100%;")
+                    div.mb-3(style="height:15%;")
+                        div.bg-white(style="height:100%;")
+                div.col-xs-0.col-sm-0.col-md-1.col-xl-2
         div.container
             div.pt-3
+            input(id="inputHistory", type="hidden", name="inputHistory", value="" )
             if identifier
                 div.text-center
                     h1= identifier
                 input(id="inputIdentifier", type="hidden", name="identifier", value=`${identifier}` )
             else
                 div.row.justify-content-center
-                    div.col-lg-6.pb-3
+                    div.col-lg-12.pb-3
                         span.label
                             | Create an anonymous identifier with at least 8 characters including both letters and numbers (e.g., squirrel072)
                             | and then come back to the questionnaire, enter your identifier on the questionnaire, so that we know you actually visited the site.
                 div.row.justify-content-center
-                    div.col-md-4
+                    div.col-md-6
                         input.form-control.form-control-lg(id="inputIdentifier", type="text", name="identifier", placeholder="Anonymous Identifier", 
                             pattern="[a-zA-Z0-9]+" minlength="8", maxlength="255", required)
                         div.invalid-feedback
