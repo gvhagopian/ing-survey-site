@@ -33,21 +33,21 @@
     window.addEventListener('load', function () {
         var forms = document.getElementsByClassName('needs-validation');
 
-        var inputList = [{ t: new Date().getTime(), v: "pageload" }];
+        var inputList = [{ time: new Date().getTime(), action: "pageload" }];
         document.getElementById("inputComment").addEventListener("focus", function (evt) {
-            inputList.push({ t: new Date().getTime(), v: "gotfocus" });
+            inputList.push({ time: new Date().getTime(), action: "gotfocus" });
         });
         document.getElementById("inputComment").addEventListener("blur", function (evt) {
-            inputList.push({ t: new Date().getTime(), v: "lostfocus" });
+            inputList.push({ time: new Date().getTime(), action: "lostfocus" });
         });
         document.getElementById("inputComment").addEventListener("keydown", function (evt) {
-            var input = { t: new Date().getTime() };
+            var input = { time: new Date().getTime() };
             if (evt.char) {
-                input.v = evt.char;
+                input.action = evt.char;
             } else if (evt.key && evt.key !== "Unidentified") {
-                input.v = evt.key;
+                input.action = evt.key;
             } else {
-                input.v = evt.code;
+                input.action = evt.code;
             }
             inputList.push(input);
         });
@@ -55,7 +55,7 @@
         var validation = Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 var isValid = form.checkValidity();
-                inputList.push({ t: new Date().getTime(), v: "submit" + (isValid ? "valid" : "invalid") });
+                inputList.push({ time: new Date().getTime(), action: "submit" + (isValid ? "valid" : "invalid") });
                 if (isValid === false) {
                     event.preventDefault();
                     event.stopPropagation();

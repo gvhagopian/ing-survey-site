@@ -1,10 +1,26 @@
-﻿/**
+﻿
+
+
+
+/**
+    * Check if JSONC is loaded in Node.js environment
+    * @type {Boolean}
+    * @private
+    */
+
+var isNodeEnvironment = typeof exports === 'object' && typeof module === 'object' && typeof module.exports === 'object' && typeof require === 'function';
+var JSONC = {}
+
+if (isNodeEnvironment) {
+    module.exports = JSONC;
+}
+
+/**
  *
  *  Base64 encode / decode
  *  http://www.webtoolkit.info/
  *
  **/
-
 var Base64 = {
 
     // private property
@@ -139,15 +155,9 @@ var Base64 = {
         return string;
     }
 
-}; void function (global, callback) {
-    if (typeof module === 'object') {
-        module.exports = callback();
-    } else if (typeof define === 'function') {
-        define(callback);
-    } else {
-        global.crc32 = callback();
-    }
-}(this, function () {
+};
+
+(function (global) {
     'use strict';
 
     var table = [],
@@ -238,18 +248,25 @@ var Base64 = {
     // this isn't that costly, and most uses will be for table assisted mode
     makeTable();
 
-    var exports = function (val, direct) {
+    var crcexports = function (val, direct) {
         var val = (typeof val === 'string') ? strToArr(val) : val,
             ret = direct ? crcDirect(val) : crcTable(val);
 
         // convert to 2's complement hex
         return (ret >>> 0).toString(16);
     };
-    exports.direct = crcDirect;
-    exports.table = crcTable;
+    crcexports.direct = crcDirect;
+    crcexports.table = crcTable;
 
-    return exports;
-});;/*
+    if (isNodeEnvironment) {
+        JSONC.crc32 = crcexports;
+    } else {
+        global.crc32 = crcexports;
+    }
+}(this));
+
+
+;/*
  * $Id: rawdeflate.js,v 0.3 2009/03/01 19:05:05 dankogai Exp dankogai $
  *
  * Original:
@@ -1942,6 +1959,10 @@ var Base64 = {
         return buff;
     }
 
+    if (isNodeEnvironment) {
+        JSONC.deflate = deflate;
+    }
+
     global.deflate = deflate;
     global.DEFAULT_LEVEL = DEFAULT_LEVEL;
 }((deflate = typeof deflate === "undefined" ? {} : deflate)));
@@ -2755,11 +2776,17 @@ var Base64 = {
         return buff;
     }
 
+    if (isNodeEnvironment) {
+        JSONC.deflate = typeof JSONC.deflate === "undefined" ? {} : JSONC.deflate;
+        JSONC.deflate.inflate = inflate;
+    }
     global.inflate = inflate;
 }((deflate = typeof deflate === "undefined" ? {} : deflate)));
-; (function (global) {
-    'use strict';
+;
 
+(function (global) {
+    'use strict';
+    
     var crc32 = global.crc32,
         deflate = global.deflate,
         // magic numbers marking this file as GZIP
@@ -3007,7 +3034,10 @@ var Base64 = {
         if (compressionMethod === 'deflate') {
             // give deflate everything but the last 8 bytes
             // the last 8 bytes are for the CRC32 checksum and filesize
-            res = deflate.inflate(arr.splice(0, arr.length - 8));
+            if (deflate)
+                res = deflate.inflate(arr.splice(0, arr.length - 8));
+            else
+                res = JSONC.deflate.inflate(arr.splice(0, arr.length - 8));
         }
 
         if (flags & possibleFlags['FTEXT']) {
@@ -3017,7 +3047,10 @@ var Base64 = {
         }
 
         crc = readLong(arr);
-        if (crc !== parseInt(crc32(res), 16)) {
+        var cksm;
+        if (isNodeEnvironment) cksm = JSONC.crc32(res);
+        else cksm = crc32(res);
+        if (crc !== parseInt(cksm, 16)) {
             throw 'Checksum does not match';
         }
 
@@ -3029,6 +3062,16 @@ var Base64 = {
         return res;
     }
 
+    if (isNodeEnvironment) {
+        JSONC.gzip = {
+            zip: zip,
+            unzip: unzip,
+            get DEFAULT_LEVEL() {
+                return DEFAULT_LEVEL;
+            }
+        }
+    }
+
     global.gzip = {
         zip: zip,
         unzip: unzip,
@@ -3037,12 +3080,11 @@ var Base64 = {
         }
     }
 }(this));
-;/*global gzip, Base64*/
+
+
 (function () {
 
     var root,
-        JSONC = {},
-        isNodeEnvironment,
         _nCode = -1,
         toString = {}.toString;
 
@@ -3052,12 +3094,6 @@ var Base64 = {
      * @private
      */
     root = this;
-    /**
-     * Check if JSONC is loaded in Node.js environment
-     * @type {Boolean}
-     * @private
-     */
-    isNodeEnvironment = typeof exports === 'object' && typeof module === 'object' && typeof module.exports === 'object' && typeof require === 'function';
     /**
      * Checks if the value exist in the array.
      * @param arr
@@ -3346,7 +3382,7 @@ var Base64 = {
      */
     JSONC.unpack = function (gzipped, bDecompress) {
         var aArr = getArr(Base64.decode(gzipped)),
-            str = String.fromCharCode.apply(String, gzip.unzip(aArr)),
+            str = String.fromCharCode.apply(String, JSONC.gzip.unzip(aArr)),
             json = JSON.parse(str);
         return bDecompress ? JSONC.decompress(json) : json;
     };
@@ -3354,12 +3390,10 @@ var Base64 = {
      * Expose Hydra to be used in node.js, as AMD module or as global
      */
     root.JSONC = JSONC;
-    if (isNodeEnvironment) {
-        module.exports = JSONC;
-    }
-    else if (typeof define !== 'undefined') {
+
+    if (typeof define !== 'undefined') {
         define('jsoncomp', [], function () {
             return JSONC;
         });
     }
-}.call(this));
+}(this));

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="public\js\CJSON.js">
+    <Compile Include="public\js\JSONC.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="public\js\srv.js">
