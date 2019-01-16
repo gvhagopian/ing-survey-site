@@ -47,8 +47,11 @@
     </Compile>
     <Compile Include="server\migrations\20181031055060-create-survey-response.js" />
     <Compile Include="server\migrations\20181031055053-create-survey-respondent.js" />
-    <Compile Include="server\migrations\20181204114940-surveyResponse.js" />
+    <Compile Include="server\migrations\20190116063528-create-response-action.js" />
     <Compile Include="server\models\index.js" />
+    <Compile Include="server\models\responseAction.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server\models\surveyRespondent.js" />
     <Compile Include="server\models\surveyResponse.js" />
     <Content Include=".sequelizerc" />

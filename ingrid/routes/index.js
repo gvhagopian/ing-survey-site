@@ -1,9 +1,32 @@
 ﻿'use strict'
 var express = require('express')
 var router = express.Router()
+var CJSON = require('../public/js/CJSON.js')
 var model = require('../server/models')
 
-var question = "Just learnt that my cancer tumor didn’t regrow. So thrilled."
+var messages = [
+    "Just learnt that my cancer tumor didn’t regrow. So thrilled.",
+    "Just learnt that my sister’s cancer tumor didn’t regrow. So thrilled.",
+    "Just learnt that my cancer tumor has regrown. So devastated.",
+    "Just learnt that my sister’s cancer tumor has regrown. So devastated.",
+    "I became a mother today. So thrilled.",
+    "My sister became a mother today. So thrilled.",
+    "I lost my baby today. So devastated.",
+    "My sister lost her baby today. So devastated."
+]
+
+var pagestyles = [
+    {
+        images: true,
+        buttons: [
+            { name: "Submit Publicly", img: imgGroup, id: "submit-publicly-btn" },
+            { name: "Submit Privately", img: imgUser, id: "submit-privately-btn" }]
+    }, {
+        images: false,
+        buttons: [
+            { name: "Submit", id: "submit-publicly-btn" }]
+    }
+]
 
 var imgGroup = {
     name: 'group',
@@ -30,7 +53,25 @@ router.get('/', (req, res) => {
     res.render('index', { title: 'Express' })
 })
 
-router.get('/1', (req, res) => {
+
+router.get('/\\d+', (req, res) => {
+
+    var page = req.url.substr(1)
+    var pNum = parseInt(page, 10) - 1;
+    console.log(req.route.path + " => " + page + " page " + pNum)
+
+    if (pNum < 0 || pNum >= messages.length * pagestyles.length) {
+        console.log("page " + pNum + " out of range (" + messages.length + " * " + pagestyles.length)
+        next('route')
+        return
+    }
+    var styleNum = Math.floor(pNum / messages.length)
+    var style = pagestyles[styleNum]
+    var messageNum = pNum % messages.length
+    var message = messages[messageNum]
+
+    console.log("style: " + style + " (" + pNum / messages.length + ") message: " + message + " (" + pNum % messages.length + ")")
+
     model.surveyRespondent
         .findOrCreate({
             where: {
@@ -40,37 +81,18 @@ router.get('/1', (req, res) => {
             }
         })
         .spread((surveyRespondent, created) => {
-            req.session.respID = surveyRespondent.id
-            res.render('survey-form', {
-                title: "Page 1",
-                surveyquery: question,
-                previmg: imgGroup,
-                buttons: [
-                    { name: "Submit Publicly", img: imgGroup, id: "submit-publicly-btn" },
-                    { name: "Submit Privately", img: imgUser, id: "submit-privately-btn" }],
-            })
-        })
-        .catch(error => {
-            res.status(400).send(error)
-        })
-})
+            var prevImg
 
-
-router.get('/2', (req, res) => {
-    model.surveyRespondent
-        .findOrCreate({
-            where: {
-                userAgent: req.headers['user-agent'],
-                ipAddress: req.connection.remoteAddress,
-                cookie: req.sessionID
+            if (style.images) {
+                prevImg = imgGroup
             }
-        })
-        .spread((surveyRespondent, created) => {
+
             req.session.respID = surveyRespondent.id
             res.render('survey-form', {
-                title: "Page 2",
-                surveyquery: question,
-                buttons: [{ name: "Submit", id: "submit-publicly-btn" }],
+                title: "Page " + page,
+                surveyquery: message,
+                previmg: prevImg,
+                buttons: style.buttons
             })
         })
         .catch(error => {
@@ -79,52 +101,48 @@ router.get('/2', (req, res) => {
 })
 
 
-router.post('/1', (req, res) => {
+router.post('/\\d+', (req, res) => {
+
+    var page = req.url.substr(1)
+    var pNum = parseInt(page, 10) - 1;
+
+    if (pNum < 0 || pNum >= messages.length * pagestyles.length) {
+        next('route')
+        return
+    }
+
+    var styleNum = Math.floor(pNum / messages.length)
+    var style = pagestyles[styleNum]
+    var messageNum = pNum % messages.length
+    var message = messages[messageNum]
     model.surveyResponse
         .create({
             respondentId: req.session.respID,
-            form: 'Page1',
+            form: styleNum,
+            message: messageNum,
             comment: req.body.comment,
             identifier: req.body.identifier,
             submitButton: req.body.button
         })
         .then(surveyResponse => {
+
             var img
-            if (req.body.button === 'Submit Publicly') img = imgGroup
-            else img = imgUser
+            var prevImg
+
+            if (style.images) {
+                prevImg = imgGroup
+                if (req.body.button === 'Submit Publicly') img = imgGroup
+                else img = imgUser
+            }
 
             res.render('survey-form',
                 {
-                    title: "Page 1",
-                    surveyquery: question,
-                    buttons: [
-                        { name: "Submit Publicly", img: imgGroup, id: "submit-publicly-btn" },
-                        { name: "Submit Privately", img: imgUser, id: "submit-privately-btn" }],
+                    title: "Page " + page,
+                    surveyquery: message,
+                    previmg: prevImg,
+                    buttons: style.buttons,
                     comment: { text: req.body.comment, button: req.body.button },
-                    previmg: imgGroup,
                     img: img,
-                    identifier: surveyResponse.identifier
-                })
-        })
-        .catch(error => res.status(400).send(error))
-})
-
-router.post('/2', (req, res) => {
-    model.surveyResponse
-        .create({
-            respondentId: req.session.respID,
-            form: 'Page2',
-            comment: req.body.comment,
-            identifier: req.body.identifier,
-            submitButton: req.body.button
-        })
-        .then(surveyResponse => {
-            res.render('survey-form',
-                {
-                    title: "Page 2",
-                    surveyquery: question,
-                    buttons: [{ name: "Submit", id: "submit-publicly-btn" }],
-                    comment: { text: req.body.comment, button: req.body.button },
                     identifier: surveyResponse.identifier
                 })
         })

@@ -3,7 +3,11 @@
 module.exports = (sequelize, DataTypes) => {
     const surveyResponse = sequelize.define('surveyResponse', {
         form: {
-            type: DataTypes.TEXT,
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        message: {
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         comment: {

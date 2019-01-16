@@ -2,26 +2,18 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('surveyResponses', {
+        return queryInterface.createTable('responseActions', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            form: {
-                type: Sequelize.STRING,
+            time: {
+                type: Sequelize.DATE,
                 allowNull: false
             },
-            comment: {
-                type: Sequelize.TEXT,
-                allowNull: false
-            },
-            identifier: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            submitButton: {
+            action: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
@@ -33,18 +25,17 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             },
-            respondentId: {
+            responseId: {
                 type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',
                 references: {
-                    model: 'surveyRespondents',
+                    model: 'surveyResponses',
                     key: 'id',
-                    as: 'respondentId'
+                    as: 'responseId'
                 }
             }
         })
     },
-
     down: (queryInterface, Sequelize) => {
         return queryInterface.dropTable('surveyResponses');
     }

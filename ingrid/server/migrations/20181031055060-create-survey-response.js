@@ -10,11 +10,15 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             form: {
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
+            message: {
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
             comment: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
                 allowNull: false
             },
             identifier: {
