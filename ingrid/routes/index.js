@@ -46,7 +46,7 @@ var pagestyles = [
     }, {
         images: false,
         buttons: [
-            { name: "Submit", id: "submit-publicly-btn" }]
+            { name: "Submit", id: "single-submit-btn" }]
     }
 ]
 

@@ -83,23 +83,23 @@ html {
     padding: 0 15px;
 }
 
-#submit-privately-btn {
+#submit-privately-btn, #single-submit-btn {
     background-color: rgba(0, 123, 255, 1);
     color: white;
 }
 
-#submit-privately-btn:hover {
+#submit-privately-btn:hover, #single-submit-btn {
     background-color: rgba(0, 103, 235, 1);
     color: white;
 }
 
-#submit-publicly-btn {
+#submit-publicly-btn{
     background-color: rgba(255, 147, 0, 1);
     outline-color: rgba(255, 147, 0, 1);
     color: black;
 }
 
-#submit-publicly-btn:hover {
+#submit-publicly-btn:hover{
     background-color: rgba(235, 127, 0, 1);
     outline-color: rgba(255, 147, 0, 1);
     color: black;

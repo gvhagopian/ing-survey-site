@@ -76,7 +76,7 @@ block content
                                                         path.img-path(style="fill:#010002;" d=`${btn.img.data}` )
                                     else
                                         div.col-md-6
-                                            input.form-control.btn-primary(type="submit", name="button" value=`${btn.name}` )
+                                            input.form-control.btn(id=`${btn.id}`, type="submit", name="button" value=`${btn.name}` )
                 div.col-xs-0.col-sm-4.col-md-4.col-xl-3(style="max-width:400px;")
                     div.mb-3(style="height:25%;")
                         div.bg-white(style="height:100%;")
@@ -91,6 +91,8 @@ block content
             if identifier
                 div.text-center
                     h1= identifier
+                    span.label
+                        | Please copy and paste this identifier back to the questionnaire.
                 input(id="inputIdentifier", type="hidden", name="identifier", value=`${identifier}` )
             else
                 div.row.justify-content-center
@@ -101,7 +103,7 @@ block content
                 div.row.justify-content-center
                     div.col-md-6
                         input.form-control.form-control-lg(id="inputIdentifier", type="text", name="identifier", placeholder="Anonymous Identifier", 
-                            pattern="[a-zA-Z0-9]+" minlength="8", maxlength="255", required)
+                            pattern="([a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*[0-9]+[a-zA-Z0-9]*)|([a-zA-Z0-9]*[0-9]+[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*)" minlength="8", maxlength="255", required)
                         div.invalid-feedback
                             | Identifier:
                             br
