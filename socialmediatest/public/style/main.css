@@ -109,7 +109,7 @@ html {
     resize: none;
 }
 
-.comment-icon  { height: 3rem; width: 3rem; }
+.comment-icon  { height: 30px; height: 3rem; width: 30px; width: 3rem; }
 .submit-icon {  height: calc(2.25rem + 2px); width: calc(2.25rem + 2px); }
 
 h1          { font-size: 3rem; }

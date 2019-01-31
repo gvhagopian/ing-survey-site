@@ -1,11 +1,11 @@
 {
-  "name": "ingrid",
+  "name": "socialmediatest",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node app"
   },
-  "description": "ingrid",
+  "description": "socialmediatest",
   "author": {
     "name": ""
   },
